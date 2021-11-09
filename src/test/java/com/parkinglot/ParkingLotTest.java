@@ -10,6 +10,15 @@ public class ParkingLotTest {
         boolean isparked = parkingLotSystem.park(new Object());
         Assertions.assertTrue(isparked);
     }
+
+    @Test
+    void givenVehicle_whenUnpark_shouldReturnTrue() {
+        Object vehicle = new Object();
+        ParkingLotSystem parkingLotSystem = new ParkingLotSystem();
+        parkingLotSystem.park(vehicle);
+        boolean isunparked = parkingLotSystem.unpark(vehicle);
+        Assertions.assertTrue(isunparked);
+    }
 }
 
 
