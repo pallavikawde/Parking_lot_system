@@ -16,22 +16,37 @@ public class ParkingLotTest {
 
     @Test
     public void givenVehicle_whenParked_shouldReturnTrue() {
-        boolean isparked = parkingLotSystem.park(new Object());
-        Assertions.assertTrue(isparked);
+        try {
+            parkingLotSystem.park(vehicle);
+           boolean isparked =  parkingLotSystem.isVehicleparked(vehicle);
+           Assertions.assertTrue(isparked);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Test
-    public void givenVehicle_whenUnpark_shouldReturnTrue() {
-        parkingLotSystem.park(vehicle);
-        boolean isunparked = parkingLotSystem.unpark(vehicle);
-        Assertions.assertTrue(isunparked);
+    public void givenVehicle_whenUnparked_shouldReturnTrue() {
+        try {
+            parkingLotSystem.park(vehicle);
+            boolean isUnparked = parkingLotSystem.unpark(vehicle);
+            Assertions.assertTrue(isUnparked);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
-    public void givenAvehicle_whenAlreadyPark_shouldNotBeAbleToPark_shouldReturnFalse() {
-        parkingLotSystem.park(vehicle);
-        boolean isparked = parkingLotSystem.park(new Object());
-        Assertions.assertFalse(isparked);
+    public void givenAVehicle_whenAlreadyPark_shouldNotBeAbleToPark_shouldReturnFalse() {
+        try {
+            parkingLotSystem.park(vehicle);
+            parkingLotSystem.park(new Object());
+        } catch (ParkingLotException e) {
+            Assertions.assertEquals(e.getMessage(),"parking lot is full");
+            e.printStackTrace();
+        }
+
     }
 }
 

@@ -13,11 +13,10 @@ public class ParkingLotSystem {
      * @param vehicle
      * @return
      *****************************************************************/
-    public boolean park(Object vehicle) {
-        if(this.vehicle != null)
-            return  false;
+    public void park(Object vehicle) throws ParkingLotException {
+        if (this.vehicle != null)
+            throw new ParkingLotException("parking lot is full");
         this.vehicle = vehicle;
-        return true;
 
     }
 
@@ -35,5 +34,11 @@ public class ParkingLotSystem {
         }
         return false;
     }
-}
 
+    public boolean isVehicleparked(Object vehicle) {
+        if (this.vehicle.equals(vehicle)) {
+            return true;
+        }
+        return false;
+    }
+}
