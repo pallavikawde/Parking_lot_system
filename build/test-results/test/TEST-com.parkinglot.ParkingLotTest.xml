@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.parkinglot.ParkingLotTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-11-09T15:24:07" hostname="LAPTOP-V004507B" time="0.017">
+  <properties/>
+  <testcase name="givenVehicle_whenParked_shouldReturnTrue()" classname="com.parkinglot.ParkingLotTest" time="0.017"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
