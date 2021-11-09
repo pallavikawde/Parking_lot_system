@@ -2,8 +2,8 @@ package com.parkinglot;
 
 public class ParkingLotSystem {
     public ParkingLotSystem() {
+        System.out.println("welcome to parking lot system");
     }
-
     /**
      * this methode is for parking a vehicle
      * @author pallavi
@@ -16,3 +16,4 @@ public class ParkingLotSystem {
 
     }
 }
+
