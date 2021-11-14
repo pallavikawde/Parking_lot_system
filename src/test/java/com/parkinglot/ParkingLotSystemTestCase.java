@@ -13,7 +13,7 @@ public class ParkingLotSystemTestCase {
     }
 
     @BeforeAll
-    static void setup() {
+     void setup() {
         System.out.println("welcome to parking lot system");
     }
     @AfterEach
@@ -22,7 +22,7 @@ public class ParkingLotSystemTestCase {
     }
 
     @AfterAll
-    static void afterAll() {
+     void afterAll() {
         System.out.println("######## end of programme############");
     }
 
@@ -44,10 +44,25 @@ public class ParkingLotSystemTestCase {
     void givenWhenParkingLotIsFull_ShouldInformTheOwner() {
        ParkingLotOwner parkingLotOwner =  new ParkingLotOwner();
        parkingLotSystem.registerOwner(parkingLotOwner);
-       Assertions.assertThrows(Exception.class, () -> parkingLotSystem.park(vehicle));
-       Assertions.assertThrows(Exception.class, () -> parkingLotSystem.park(new Object()));
+       Assertions.assertThrows(Exception.class, () -> {
+           parkingLotSystem.park(vehicle);
+           parkingLotSystem.park(new Object());
+       });
        boolean checkingCapacity =  parkingLotOwner.isCapacityFull();
        Assertions.assertTrue(checkingCapacity);
+    }
+
+    @Test
+    void givenCapacityIs2_shouldBeAbleToPark2Vehicles() {
+        Object vehicle2 = new Object();
+        parkingLotSystem.setCapacity(2);
+        Assertions.assertThrows(Exception.class, () -> {
+            parkingLotSystem.park(vehicle);
+            parkingLotSystem.park(vehicle2);
+        });
+        boolean isParked1 = parkingLotSystem.isVehicleparked(vehicle);
+        boolean isParked2 = parkingLotSystem.isVehicleparked(vehicle2);
+        Assertions.assertTrue(isParked1 && isParked2);
     }
 }
     
