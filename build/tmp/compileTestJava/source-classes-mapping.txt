@@ -1,2 +1,2 @@
-com/parkinglot/ParkingLotTest.java
- com.parkinglot.ParkingLotTest
+com/parkinglot/ParkingLotSystemTestCase.java
+ com.parkinglot.ParkingLotSystemTestCase
