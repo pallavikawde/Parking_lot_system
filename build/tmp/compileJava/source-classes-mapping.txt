@@ -2,3 +2,5 @@ com/parkinglot/ParkingLotException.java
  com.parkinglot.ParkingLotException
 com/parkinglot/ParkingLotSystem.java
  com.parkinglot.ParkingLotSystem
+com/parkinglot/ParkingLotOwner.java
+ com.parkinglot.ParkingLotOwner
