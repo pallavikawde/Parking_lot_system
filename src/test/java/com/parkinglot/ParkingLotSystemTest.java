@@ -149,18 +149,18 @@ public class ParkingLotSystemTest {
         attendant.parkedByAttendant(vehicle);
         Assertions.assertTrue(parkingLotSystem.isVehicleParked(vehicle));
     }
-////uc7
-//    @Test
-//    void givenAVehicle_WhenParked_ThenCheckForPosition_ShouldReturnPosition() throws ParkingLotSystemException {
-//        Vehicle vehicle1 = new Vehicle("CHEVROLET", "IN-MP0023", "11:00");
-//        Vehicle vehicle2 = new Vehicle("AUDI", "IN-KL003", "9:00");
-//        parkingLotSystem.park(vehicle1);
-//        parkingLotSystem.park(vehicle2);
-//        int vehiclePositionForVehicle1 = parkingLotSystem.getVehiclePosition(vehicle1);
-//        int vehiclePositionForVehicle2 = parkingLotSystem.getVehiclePosition(vehicle2);
-//        Assertions.assertEquals(0, vehiclePositionForVehicle1);
-//        Assertions.assertEquals(1, vehiclePositionForVehicle2);
-//    }
+//uc7
+    @Test
+    void givenAVehicle_WhenParked_ThenCheckForPosition_ShouldReturnPosition() throws ParkingLotSystemException {
+        Vehicle vehicle1 = new Vehicle("CHEVROLET", "IN-MP0023", "11:00");
+        Vehicle vehicle2 = new Vehicle("AUDI", "IN-KL003", "9:00");
+        parkingLotSystem.park(vehicle1);
+        parkingLotSystem.park(vehicle2);
+        int vehiclePositionForVehicle1 = parkingLotSystem.getVehiclePosition(vehicle1);
+        int vehiclePositionForVehicle2 = parkingLotSystem.getVehiclePosition(vehicle2);
+        Assertions.assertEquals(0, vehiclePositionForVehicle1);
+        Assertions.assertEquals(1, vehiclePositionForVehicle2);
+    }
 ////uc8
 //    @Test
 //    void givenAVehicle_WhenParked_ThenCheckTimeOfParking_ShouldReturnParkingTime() throws ParkingLotSystemException {
