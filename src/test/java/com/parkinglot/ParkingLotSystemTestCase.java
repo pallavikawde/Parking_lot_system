@@ -11,20 +11,20 @@ public class ParkingLotSystemTestCase {
         vehicle = new Object();
         parkingLotSystem = new ParkingLotSystem(1);
     }
-
-    @BeforeAll
-     void setup() {
-        System.out.println("welcome to parking lot system");
-    }
-    @AfterEach
-     void afterEach(){
-        System.out.println("cleaning up........");
-    }
-
-    @AfterAll
-     void afterAll() {
-        System.out.println("######## end of programme############");
-    }
+//
+//    @BeforeAll
+//     void setup() {
+//        System.out.println("welcome to parking lot system");
+//    }
+//    @AfterEach
+//     void afterEach(){
+//        System.out.println("cleaning up........");
+//    }
+//
+//    @AfterAll
+//     void afterAll() {
+//        System.out.println("######## end of programme############");
+//    }
 
     @Test
     public void givenVehicle_whenParked_shouldReturnTrue() {
@@ -43,7 +43,7 @@ public class ParkingLotSystemTestCase {
     @Test
     void givenWhenParkingLotIsFull_ShouldInformTheOwner() {
        ParkingLotOwner parkingLotOwner =  new ParkingLotOwner();
-       parkingLotSystem.registerOwner(parkingLotOwner);
+       parkingLotSystem.registerParkingLotObserver(parkingLotOwner);
        Assertions.assertThrows(Exception.class, () -> {
            parkingLotSystem.park(vehicle);
            parkingLotSystem.park(new Object());
@@ -64,7 +64,20 @@ public class ParkingLotSystemTestCase {
         boolean isParked2 = parkingLotSystem.isVehicleparked(vehicle2);
         Assertions.assertTrue(isParked1 && isParked2);
     }
-}
+
+    @Test
+    void givenWhenParkingLotIsFull_shouldInformTheSecurityPerson() {
+      AirportSecurity airportSecurity =  new AirportSecurity();
+      parkingLotSystem.registerParkingLotObserver(airportSecurity);
+        Assertions.assertThrows(Exception.class, () -> {
+            parkingLotSystem.park(vehicle);
+            parkingLotSystem.park(new Object());
+        });
+        boolean checkingCapacity =  airportSecurity.isCapacityFull();
+        Assertions.assertTrue(checkingCapacity);
+    }
+    }
+
     
 
 
