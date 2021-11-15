@@ -1,10 +1,15 @@
 com/parkinglot/ParkingLotSystem.java
  com.parkinglot.ParkingLotSystem
-com/parkinglot/ParkingLotException.java
- com.parkinglot.ParkingLotException
-com/parkinglot/ParkingLotOwner.java
- com.parkinglot.ParkingLotOwner
-com/parkinglot/ParkingLotObserver.java
- com.parkinglot.ParkingLotObserver
+com/parkinglot/ParkingLotSystemOwner.java
+ com.parkinglot.ParkingLotSystemOwner
+com/parkinglot/ParkingLotSystemException.java
+ com.parkinglot.ParkingLotSystemException
+ com.parkinglot.ParkingLotSystemException$ExceptionType
+com/parkinglot/Vehicle.java
+ com.parkinglot.Vehicle
+com/parkinglot/ParkingLotAttendant.java
+ com.parkinglot.ParkingLotAttendant
 com/parkinglot/AirportSecurity.java
  com.parkinglot.AirportSecurity
+com/parkinglot/Observer.java
+ com.parkinglot.Observer
