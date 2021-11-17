@@ -2,6 +2,8 @@ package com.parkinglot;
 
 import org.junit.jupiter.api.*;
 
+import java.time.LocalTime;
+
 public class ParkingLotSystemTest {
     ParkingLotSystem parkingLotSystem = null;
     Vehicle vehicle = null;
@@ -16,16 +18,19 @@ public class ParkingLotSystemTest {
         airportSecurity = new AirportSecurity();
         attendant = new ParkingLotAttendant();
     }
+
     @BeforeAll
-     static void beforeAll(){
+    static void beforeAll() {
         System.out.println("****************** welcome to parking lot system *******************************");
     }
+
     @AfterEach
-    void afterEach(){
+    void afterEach() {
         System.out.println("cleaning up.............");
     }
+
     @AfterAll
-     static void afterAll(){
+    static void afterAll() {
         System.out.println("********************** End of programme ******************************");
     }
 
@@ -34,8 +39,10 @@ public class ParkingLotSystemTest {
     void givenMessage_ShouldPrintWelcomeMessage() {
         parkingLotSystem.printWelcomeMessage();
     }
-//uc1
+
+    //uc1
     @Test
+    @DisplayName("parking a vehicle")
     void givenAVehicle_WhenParked_ShouldReturnTrue() throws ParkingLotSystemException {
         vehicle = new Vehicle("PORSCHE", "WB-10KL2356", "6:30");
         parkingLotSystem.park(vehicle);
@@ -43,43 +50,25 @@ public class ParkingLotSystemTest {
         Assertions.assertTrue(isParked);
     }
 
-    @Test
-    void givenAVehicle_WhenAlreadyParkedAndCheckIfUnpark_ShouldReturnFalse() throws ParkingLotSystemException {
-        vehicle = new Vehicle("TOYOTA", "WB-KL4789", "10:30");
-        parkingLotSystem.park(vehicle);
-        boolean isUnParked = parkingLotSystem.isVehicleUnParked(vehicle);
-        Assertions.assertFalse(isUnParked);
-    }
-
-//    @Test
-//    void givenAVehicle_WhenParkedAnotherVehicle_ShouldReturnFalse() {
-//        Vehicle vehicle1 = new Vehicle("HYUNDAI", "WB-P98754", "9:30");
-//        Vehicle vehicle2 = new Vehicle("FORD", "IN-658941", "7:00");
-//        try {
-//            parkingLotSystem.park(vehicle1);
-//            parkingLotSystem.park(vehicle2);
-//        } catch (ParkingLotSystemException exception) {
-//            Assertions.assertEquals(ParkingLotSystemException.ExceptionType.PARKING_LOT_IS_FULL,
-//                    exception.exceptionType);
-//        }
-//    }
-//uc2
+    //uc2
     @Test
     void givenANullVehicle_WhenUnParked_ShouldThrowException() {
         Assertions.assertThrows(ParkingLotSystemException.class, () -> parkingLotSystem.unPark(vehicle));
     }
-//uc3
+
+    //uc3
     @Test
     void givenAVehicle_WhenCheckingIfParkingLotIsFull_ShouldReturnFalse() throws ParkingLotSystemException {
-        vehicle = new Vehicle("HYUNDAI", "WB-P98754", "11:00");
+        vehicle = new Vehicle("creta", "WB-p098", "11:00");
         parkingLotSystem.park(vehicle);
         boolean checkingIfFull = parkingLotSystem.isParkingLotFull();
         Assertions.assertFalse(checkingIfFull);
     }
-//uc4
+
+    //uc4
     @Test
     void givenAVehicle_WhenParkingLotIsFull_ShouldRedirectToAirportSecurityStaff() {
-        vehicle = new Vehicle("ROLLS ROYCE", "WB-KL2695", "14:45");
+        vehicle = new Vehicle("MARUTI", "WB-AM234", "14:45");
         try {
             parkingLotSystem.park(vehicle);
         } catch (ParkingLotSystemException exception) {
@@ -108,7 +97,8 @@ public class ParkingLotSystemTest {
                     exception.exceptionType);
         }
     }
-//uc4
+
+    //uc4
     @Test
     void givenVehicles_WhenParkingLotIsFull_ShouldInformTheAirportSecurity() {
         parkingLotSystem.addObserver(airportSecurity);
@@ -128,7 +118,8 @@ public class ParkingLotSystemTest {
                     exception.exceptionType);
         }
     }
-//uc5
+
+    ////uc5
     @Test
     void givenVehicles_WhenParkingLotHasSpaceAgain_ShouldInformTheOwner() throws ParkingLotSystemException {
         parkingLotSystem.addObserver(owner);
@@ -142,17 +133,19 @@ public class ParkingLotSystemTest {
         Assertions.assertThrows(ParkingLotSystemException.class, () -> parkingLotSystem.unPark(vehicle3));
         Assertions.assertFalse(owner.getParkingLotStatusIfCapacityFull());
     }
-//uc6
+
+    //uc6
     @Test
     void givenAVehicleToAttendant_WhenParked_ThenCheckIfParked_ShouldReturnTrue() throws ParkingLotSystemException {
         Vehicle vehicle = new Vehicle("FORD", "IN-MH2546", "15:20");
         attendant.parkedByAttendant(vehicle);
         Assertions.assertTrue(parkingLotSystem.isVehicleParked(vehicle));
     }
-//uc7
+
+    //uc7
     @Test
     void givenAVehicle_WhenParked_ThenCheckForPosition_ShouldReturnPosition() throws ParkingLotSystemException {
-        Vehicle vehicle1 = new Vehicle("CHEVROLET", "IN-MP0023", "11:00");
+        Vehicle vehicle1 = new Vehicle("CRETA", "IN-MP0023", "11:00");
         Vehicle vehicle2 = new Vehicle("AUDI", "IN-KL003", "9:00");
         parkingLotSystem.park(vehicle1);
         parkingLotSystem.park(vehicle2);
@@ -161,14 +154,18 @@ public class ParkingLotSystemTest {
         Assertions.assertEquals(0, vehiclePositionForVehicle1);
         Assertions.assertEquals(1, vehiclePositionForVehicle2);
     }
-////uc8
-//    @Test
-//    void givenAVehicle_WhenParked_ThenCheckTimeOfParking_ShouldReturnParkingTime() throws ParkingLotSystemException {
-//        Vehicle vehicle = new Vehicle("TOYOTA", "KL-MH25698", "11:00");
-//        parkingLotSystem.park(vehicle);
-//        String vehicleParkingTime = parkingLotSystem.getVehicleParkingTime(vehicle);
-//        Assertions.assertEquals("11:00", vehicleParkingTime);
-//    }
-//}
+
+    //uc8
+    @Test
+    void givenAVehicle_WhenParked_ThenCheckTimeOfParking_ShouldReturnParkingTime() throws ParkingLotSystemException {
+        Vehicle vehicle = new Vehicle("TOYOTA", "KL-MH25698", "11:00");
+        parkingLotSystem.park(vehicle);
+        String vehicleParkingTime = parkingLotSystem.getVehicleParkingTime(vehicle);
+        Assertions.assertEquals("11:00", vehicleParkingTime);
+    }
+
+}
+
+
 
 

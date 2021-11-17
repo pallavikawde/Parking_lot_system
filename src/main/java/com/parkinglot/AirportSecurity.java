@@ -1,13 +1,12 @@
 package com.parkinglot;
 
-
-/**
+/**********************************************************************************************************
  * Purpose : To operate as an observer by airport security staff
  *
  * @author PALLAVI JAGTAP
  * @version '1.0-SNAPSHOT'
  * @since 2021-11-11
- */
+ *****************************************************************************************************************/
 public class AirportSecurity implements Observer {
     private boolean isParkingLotFull;
 
@@ -15,10 +14,9 @@ public class AirportSecurity implements Observer {
      * Purpose : This method is created to set the status of full capacity of parking lot
      */
     @Override
-    public void setParkingLotCapacity() {
+    public void ParkingLotCapacityFull() {
         isParkingLotFull = true;
     }
-
     /**
      * Purpose : This method is created to set the status of parking capacity available in the parking lot
      */

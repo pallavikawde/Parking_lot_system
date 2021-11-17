@@ -9,9 +9,9 @@ import java.time.LocalTime;
  * @since 2021-11-011
  *********************************************************************************************************************/
 public class Vehicle {
-    private final String name;
-    private final String vehicleNumber;
-    private final String parkingTime;
+    private String name;
+    private String vehicleNumber;
+    private String parkingTime;
 
     public Vehicle(String name, String vehicleNumber, String parkingTime) {
         this.name = name;
