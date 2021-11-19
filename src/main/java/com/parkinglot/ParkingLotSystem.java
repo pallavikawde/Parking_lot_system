@@ -1,164 +1,220 @@
 package com.parkinglot;
 
-//import jdk.internal.icu.text.UnicodeSet;
+import java.util.*;
 
-//import jdk.internal.icu.text.UnicodeSet;
+import static com.parkinglot.PersonType.HANDICAPPED;
+import static com.parkinglot.Vehicle.VehicleType.LARGE;
 
-import java.util.ArrayList;
-import java.util.List;
-
-/****
- * Purpose : To simulate parking lot system
- *
- * @author PALLAVI JAGTAP
- * @version '1.0-SNAPSHOT'
- * @since 2021-11-11
- **/
 public class ParkingLotSystem {
-    private static List<Vehicle> vehicles;
-    private final int actualCapacity;
-    private final List<Observer> observers;
-    private ParkingLotSystemOwner owner;
-    private Vehicle vehicle;
-    public ArrayList<Object> parkingLot;
 
-    public ParkingLotSystem(int capacity) {
-        this.actualCapacity = capacity;
-        vehicles = new ArrayList<>();
-        this.observers = new ArrayList<>();
-        this.parkingLot = new ArrayList<Object>();
-    }
+        private static HashMap<Integer, Vehicle> parkingLot1;
+        private static HashMap<Integer, Vehicle> parkingLot2;
+        private boolean isParkingLotFull = false;
+        private int parkingLotSize = 6;
+        private int numOfVacantParking = 6;
+        private List<Observer> observerList = new ArrayList<>();
+        private Map activeParkingLot = parkingLot2;
 
-    public static void multiSlots() {
+        public ParkingLotSystem() {
+            parkingLot1 = new HashMap<>();
+            parkingLot1.put(1, null);
+            parkingLot1.put(2, null);
+            parkingLot1.put(3, null);
 
-
-    }
-
-    public static void parked() {
-
-    }
-
-    /**
-     * Purpose : This method is created to print welcome message
-     **/
-
-    public void printWelcomeMessage() {
-        System.out.println("Welcome To The Parking Lot System...");
-    }
-
-    /**
-     * Purpose : This method is created to park the vehicle
-     *
-     * @param vehicle : takes vehicle as parameter to park the vehicle
-     * @throws ParkingLotSystemException : when the parking lot is full
-     *******/
-
-    public void park(Vehicle vehicle) throws ParkingLotSystemException {
-        if (ParkingLotSystem.vehicles.size() == this.actualCapacity) {
-            for (Observer observer : observers) {
-                observer.ParkingLotCapacityFull();
-            }
-            throw new ParkingLotSystemException
-                    (ParkingLotSystemException.ExceptionType.PARKING_LOT_IS_FULL, "Parking Lot is Full");
+            parkingLot2 = new HashMap<>();
+            parkingLot2.put(4, null);
+            parkingLot2.put(5, null);
+            parkingLot2.put(6, null);
         }
-        if (isVehicleParked(vehicle)) {
-            throw new ParkingLotSystemException(ParkingLotSystemException.ExceptionType.NO_SUCH_VEHICLE,
-                    "Vehicle already Parked");
 
+        public void addObserver(Observer observer) {
+            this.observerList.add(observer);
         }
-        ParkingLotSystem.vehicles.add(vehicle);
-    }
 
-
-    /**
-     * Purpose : This method is created to unpark the vehicle
-     *
-     * @param vehicle : takes vehicle as parameter to unpark the vehicle
-     * @throws ParkingLotSystemException : when there is no vehicle to unpark
-     **/
-
-    public void unPark(Vehicle vehicle) throws ParkingLotSystemException {
-        if (this.vehicle == null) {
-            throw new ParkingLotSystemException
-                    (ParkingLotSystemException.ExceptionType.NO_SUCH_VEHICLE, "Vehicles can not be null");
-        } else if (ParkingLotSystem.vehicles.contains(vehicle)) {
-            ParkingLotSystem.vehicles.remove(vehicle);
-            for (Observer observer : observers) {
-                observer.setParkingCapacityAvailable();
+        public void setStatus(boolean isParkingLotFull) {
+            this.isParkingLotFull = isParkingLotFull;
+            for (Observer observer : this.observerList) {
+                observer.update(isParkingLotFull);
             }
         }
-    }
 
-    /*
-     * Purpose : This method is created to check
-     * the vehicle is parked or not
-     *
-     * @param vehicle : takes vehicle as parameter to check
-     * the vehicle is parked or not
-     *
-     * @return the vehicle is parked
-     **/
-
-    public boolean isVehicleParked(Vehicle vehicle) {
-        return ParkingLotSystem.vehicles.contains(vehicle);
-    }
-
-    /*
-     * Purpose : This method is created for checking whether the parking lot is full or not
-     *
-     * @return the checked value
-     **/
-
-    public boolean isParkingLotFull() {
-        return vehicles.size() == this.actualCapacity;
-    }
-
-    /***
-     * Purpose : This method is created to add parking lot owner observer
-     *
-     * @param observer : This method is created to add parking lot owner observer
-     **/
-    public void addObserver(Observer observer) {
-        this.observers.add(observer);
-    }
-
-    /**
-     * Purpose : This method is created to get back the position of parked car
-     *
-     * @param vehicle : takes vehicle as parameter to get back the position of parked car
-     * @return the position of the vehicle if the vehicle is parked
-     * @throws ParkingLotSystemException : when no vehicle is found
-     **/
-    public int getVehiclePosition(Vehicle vehicle) throws ParkingLotSystemException {
-        if (isVehicleParked(vehicle))
-            for (Vehicle position : vehicles) {
-                if (position.equals(vehicle))
-                    return vehicles.indexOf(position);
+        public int numOfVacantParkingInParkingLot(Map parkingLot) {
+            int numOfParkingAvailable = 0;
+            Iterator<Map.Entry<Integer, Vehicle>> iterator1 = parkingLot.entrySet().iterator();
+            while (iterator1.hasNext()) {
+                if (iterator1.next().getValue() == null) {
+                    numOfParkingAvailable++;
+                }
             }
-        throw new ParkingLotSystemException(ParkingLotSystemException.ExceptionType.NO_SUCH_VEHICLE,
-                "No Such Vehicle Found");
-    }
-
-    /**
-     * Purpose : This method is created to get back the parking time of vehicle
-     *
-     * @param vehicle : takes vehicle as parameter to check parking time of vehicle.
-     * @return the parking time of the vehicle if the vehicle is parked
-     * @throws ParkingLotSystemException : when no vehicle is found
-     **/
-
-    public String getVehicleParkingTime(Vehicle vehicle) throws ParkingLotSystemException {
-        if (isVehicleParked(vehicle)) {
-            for (Vehicle parkingTimeForVehicle : vehicles) {
-                if (parkingTimeForVehicle.equals(vehicle))
-                    return parkingTimeForVehicle.getParkingTime();
-            }
+            return numOfParkingAvailable;
         }
-        throw new ParkingLotSystemException(ParkingLotSystemException.ExceptionType.NO_SUCH_VEHICLE,
-                "No Such Vehicle Parked");
+
+        public Map parkingLotWithHighestNumOfFreeSpace() {
+            int numOfParkingAvailableIn1 = 0;
+            int numOfParkingAvailableIn2 = 0;
+            Iterator<Map.Entry<Integer, Vehicle>> iterator1 = parkingLot1.entrySet().iterator();
+            while (iterator1.hasNext()) {
+                if (iterator1.next().getValue() == null) {
+                    numOfParkingAvailableIn1++;
+                }
+            }
+            Iterator<Map.Entry<Integer, Vehicle>> iterator2 = parkingLot2.entrySet().iterator();
+            while (iterator2.hasNext()) {
+                if (iterator2.next().getValue() == null) {
+                    numOfParkingAvailableIn2++;
+                }
+            }
+            if (numOfParkingAvailableIn1 >= numOfParkingAvailableIn2)
+                return parkingLot1;
+            else return parkingLot2;
+        }
+
+        private void activeParkingLot() {
+            if (activeParkingLot == parkingLot1)
+                activeParkingLot = parkingLot2;
+            else activeParkingLot = parkingLot1;
+        }
+
+        public void park(Vehicle vehicle, PersonType personType) throws ParkingLotSystemException {
+            activeParkingLot();
+//        if (numOfVacantParking > 0)
+            if (personType.equals(HANDICAPPED)) {
+                handicappedPark(vehicle);
+                return;
+            } else if (vehicle.getVehicleType().equals(LARGE)) {
+                largeVehiclePark(vehicle);
+                return;
+            } else {
+                evenlyVehiclePark(vehicle);
+                return;
+            }
+//         if (numOfVacantParking == 0) {
+//            setStatus(true);
+//            throw new ParkingLotSystemException(ParkingLotSystemException.ExceptionType.PARKING_LOT_IS_FULL, "Parking Lot Is Full");
+//        } else setStatus(false);
+        }
+
+        private void handicappedPark(Vehicle vehicle) throws ParkingLotSystemException {
+            for (int index : parkingLot1.keySet()) {
+                if (parkingLot1.get(index) == null) {
+                    parkingLot1.put(index, vehicle);
+                    numOfVacantParking--;
+                    break;
+                }
+            }
+            if (!parkingLot1.containsValue(vehicle)) {
+                for (int index : parkingLot2.keySet()) {
+                    if (parkingLot2.get(index) == null) {
+                        parkingLot2.put(index, vehicle);
+                        numOfVacantParking--;
+                        break;
+                    }
+                }
+            }
+            if (numOfVacantParking == 0)
+                setStatus(true);
+//        throw new ParkingLotSystemException(ParkingLotSystemException.ExceptionType.PARKING_LOT_IS_FULL, "Parking Lot Is Full");
+        }
+
+        private void largeVehiclePark(Vehicle vehicle) throws ParkingLotSystemException {
+            Map parkingLotWithHighestNumOfFreeSpace = parkingLotWithHighestNumOfFreeSpace();
+            for (Object index : parkingLotWithHighestNumOfFreeSpace.keySet()) {
+                if (parkingLotWithHighestNumOfFreeSpace.get(index) == null) {
+                    parkingLotWithHighestNumOfFreeSpace.put(index, vehicle);
+                    numOfVacantParking--;
+                    break;
+                }
+            }
+            if (numOfVacantParking == 0)
+                setStatus(true);
+        }
+
+        private void evenlyVehiclePark(Vehicle vehicle) throws ParkingLotSystemException {
+            if (numOfVacantParkingInParkingLot(activeParkingLot) > 0 && activeParkingLot == parkingLot1) {
+                for (int index : parkingLot1.keySet()) {
+                    if (parkingLot1.get(index) == null) {
+                        parkingLot1.put(index, vehicle);
+                        numOfVacantParking--;
+                        break;
+                    }
+                }
+            } else if (numOfVacantParkingInParkingLot(activeParkingLot) > 0 && activeParkingLot == parkingLot2) {
+                for (int index : parkingLot2.keySet()) {
+                    if (parkingLot2.get(index) == null) {
+                        parkingLot2.put(index, vehicle);
+                        numOfVacantParking--;
+                        break;
+                    }
+                }
+            }
+            if (numOfVacantParking == 0)
+                setStatus(true);
+        }
+
+        public void unPark(Vehicle vehicle) throws ParkingLotSystemException {
+            if (vehicle == null || (!parkingLot1.containsValue(vehicle) && !parkingLot2.containsValue(vehicle)))
+                throw new ParkingLotSystemException(ParkingLotSystemException.ExceptionType.NO_SUCH_A_VEHICLE, "No Such Vehicle Found");
+            else {
+                if (parkingLot1.containsValue(vehicle)) {
+                    for (int index : parkingLot1.keySet()) {
+                        if (parkingLot1.get(index) == vehicle) {
+                            parkingLot1.put(index, null);
+                            numOfVacantParking++;
+                            break;
+                        }
+                    }
+                } else {
+                    for (int index : parkingLot2.keySet()) {
+                        if (parkingLot2.get(index) == vehicle) {
+                            parkingLot2.put(index, null);
+                            numOfVacantParking++;
+                            break;
+                        }
+                    }
+                }
+            }
+            if (numOfVacantParking > 0)
+                setStatus(false);
+        }
+
+        public int getVehiclePosition(Vehicle vehicle) throws ParkingLotSystemException {
+            for (int position : parkingLot1.keySet()) {
+                if (parkingLot1.get(position) == vehicle) {
+                    return position;
+                }
+            }
+            for (int position : parkingLot2.keySet()) {
+                if (parkingLot2.get(position) == vehicle) {
+                    return position;
+                }
+            }
+            throw new ParkingLotSystemException(ParkingLotSystemException.ExceptionType.NO_SUCH_A_VEHICLE, "No Such Vehicle Found");
+        }
+
+        public String getParkingTime(Vehicle vehicle) throws ParkingLotSystemException {
+            for (int position : parkingLot1.keySet()) {
+                if (parkingLot1.get(position) == vehicle) {
+                    return parkingLot1.get(position).getParkingTime();
+                }
+            }
+            for (int position : parkingLot2.keySet()) {
+                if (parkingLot2.get(position) == vehicle) {
+                    return parkingLot2.get(position).getParkingTime();
+                }
+            }
+            throw new ParkingLotSystemException(ParkingLotSystemException.ExceptionType.NO_SUCH_A_VEHICLE, "No Such Vehicle Found");
+        }
+
+        public boolean isVehicleParked(Vehicle vehicle) {
+            boolean isVehicleParkedInParkingLot1 = parkingLot1.containsValue(vehicle);
+            boolean isVehicleParkedInParkingLot2 = parkingLot2.containsValue(vehicle);
+            return isVehicleParkedInParkingLot1 || isVehicleParkedInParkingLot2;
+        }
+
+        public boolean isVehicleUnParked(Vehicle vehicle) {
+            boolean isVehicleParkedInParkingLot1 = parkingLot1.containsValue(vehicle);
+            boolean isVehicleParkedInParkingLot2 = parkingLot2.containsValue(vehicle);
+            return !isVehicleParkedInParkingLot1 && !isVehicleParkedInParkingLot2;
+        }
     }
-
-}
-
-
 
