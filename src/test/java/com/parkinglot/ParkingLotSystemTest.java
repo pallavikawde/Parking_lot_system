@@ -50,7 +50,7 @@ public class ParkingLotSystemTest {
         Assertions.assertTrue(isParked);
     }
 
-    //uc2
+    //uc2,
     @Test
     void givenANullVehicle_WhenUnParked_ShouldThrowException() {
         Assertions.assertThrows(ParkingLotSystemException.class, () -> parkingLotSystem.unPark(vehicle));

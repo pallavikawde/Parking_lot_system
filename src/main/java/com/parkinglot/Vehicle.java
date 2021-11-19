@@ -9,25 +9,42 @@ import java.time.LocalTime;
  * @since 2021-11-011
  *********************************************************************************************************************/
 public class Vehicle {
-    private String name;
     private String vehicleNumber;
+    private String name;
     private String parkingTime;
+    private VehicleType vehicleType;
 
-    public Vehicle(String name, String vehicleNumber, String parkingTime) {
-        this.name = name;
-        this.vehicleNumber = vehicleNumber;
-        this.parkingTime = parkingTime;
+    public enum VehicleType {
+        SMALL,
+        LARGE
     }
 
-    public String getName() {
-        return name;
+    public Vehicle(String vehicleNumber, String name, String parkingTime, VehicleType vehicleType) {
+        this.vehicleNumber = vehicleNumber;
+        this.name = name;
+        this.parkingTime = parkingTime;
+        this.vehicleType = vehicleType;
+    }
+
+    public VehicleType getVehicleType() {
+        return vehicleType;
+    }
+
+    public void setVehicleType(VehicleType vehicleType) {
+        this.vehicleType = vehicleType;
     }
 
     public String getVehicleNumber() {
         return vehicleNumber;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public String getParkingTime() {
         return parkingTime;
     }
 }
+
+

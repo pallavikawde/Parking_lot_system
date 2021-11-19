@@ -15,17 +15,28 @@ import java.util.List;
  * @since 2021-11-11
  **/
 public class ParkingLotSystem {
-        private final int actualCapacity;
-        private ParkingLotSystemOwner owner;
-        private Vehicle vehicle;
-        private static List<Vehicle> vehicles;
-        private final List<Observer> observers;
+    private static List<Vehicle> vehicles;
+    private final int actualCapacity;
+    private final List<Observer> observers;
+    private ParkingLotSystemOwner owner;
+    private Vehicle vehicle;
+    public ArrayList<Object> parkingLot;
 
-        public ParkingLotSystem(int capacity) {
-            this.actualCapacity = capacity;
-            vehicles = new ArrayList<>();
-            this.observers = new ArrayList<>();
-        }
+    public ParkingLotSystem(int capacity) {
+        this.actualCapacity = capacity;
+        vehicles = new ArrayList<>();
+        this.observers = new ArrayList<>();
+        this.parkingLot = new ArrayList<Object>();
+    }
+
+    public static void multiSlots() {
+
+
+    }
+
+    public static void parked() {
+
+    }
 
     /**
      * Purpose : This method is created to print welcome message
@@ -44,7 +55,6 @@ public class ParkingLotSystem {
 
     public void park(Vehicle vehicle) throws ParkingLotSystemException {
         if (ParkingLotSystem.vehicles.size() == this.actualCapacity) {
-              ParkingLotSystem.vehicles.add(vehicle);
             for (Observer observer : observers) {
                 observer.ParkingLotCapacityFull();
             }
@@ -58,6 +68,7 @@ public class ParkingLotSystem {
         }
         ParkingLotSystem.vehicles.add(vehicle);
     }
+
 
     /**
      * Purpose : This method is created to unpark the vehicle
