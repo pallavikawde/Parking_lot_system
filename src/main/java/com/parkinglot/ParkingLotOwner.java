@@ -1,20 +1,20 @@
 package com.parkinglot;
 
-
 /**
- * Purpose To Know Airport Security When The Lot is full & When Space Available.
+ * Purpose: To Know Lot Owner When The Lot is full & Space Available.
  *
  * @author PALLAVI JAGTAP
  * @since 10/11/2021
  */
-public class AirportSecurity {
+public class ParkingLotOwner {
     private boolean isCapacityFull;
+
 
     public void capacityIsFull() {
         isCapacityFull = true;
     }
 
-   
+
     public void capacityIsAvailable() {
         isCapacityFull = false;
     }
@@ -23,5 +23,3 @@ public class AirportSecurity {
         return this.isCapacityFull;
     }
 }
-
-
